@@ -1,30 +1,17 @@
 function Interests() {
   return (
-    <div style={{ marginTop: "30px", textAlign: "center" }}>
+    <div className="mt-[30px] text-center">
       <h3>Interests & Hobbies</h3>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-          marginTop: "10px",
-          flexWrap: "wrap"
-        }}
-      >
-        <span style={chipStyle}>Nadar</span>
-        <span style={chipStyle}>Básket</span>
-        <span style={chipStyle}>Fútbol</span>
+      <div className="mt-2.5 flex flex-wrap justify-center gap-2.5">
+        <span className={chipClassName}>Nadar</span>
+        <span className={chipClassName}>Básket</span>
+        <span className={chipClassName}>Fútbol</span>
       </div>
     </div>
   )
 }
 
-const chipStyle = {
-  backgroundColor: "#e5e7eb",
-  padding: "8px 15px",
-  borderRadius: "20px",
-  fontSize: "12px"
-}
+const chipClassName = "rounded-[20px] bg-gray-200 px-[15px] py-2 text-xs"
 
 export default Interests

@@ -1,15 +1,15 @@
 function UserInfo() {
   return (
-    <div style={{ textAlign: "center", marginTop: "10px" }}>
-      <p style={{ color: "gray", fontSize: "14px", margin: 0 }}>
+    <div className="mt-2.5 text-center">
+      <p className="m-0 text-[14px] text-gray-500">
         Ingeniería en sistemas
       </p>
 
-      <h2 style={{ margin: "2px 0", fontWeight: "600" }}>
+      <h2 className="my-[2px] font-semibold">
         Juan
       </h2>
 
-      <p style={{ color: "gray", margin: 0 }}>
+      <p className="m-0 text-gray-500">
         @juan_26
       </p>
     </div>

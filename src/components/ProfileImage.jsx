@@ -2,16 +2,11 @@ import profilePic from "../assets/profile.jpg"
 
 function ProfileImage() {
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
+    <div className="mt-[50px] flex justify-center">
       <img
         src={profilePic}
         alt="profile"
-        style={{
-          width: "150px",
-          height: "150px",
-          borderRadius: "50%",
-          objectFit: "cover"
-        }}
+        className="h-[150px] w-[150px] rounded-full object-cover"
       />
     </div>
   )

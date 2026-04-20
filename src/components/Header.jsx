@@ -1,18 +1,11 @@
 function Header() {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: "20px"
-      }}
-    >
-      <span style={{ fontSize: "20px", cursor: "pointer" }}>☰</span>
+    <div className="mb-5 flex items-center justify-between">
+      <span className="cursor-pointer text-[20px]">☰</span>
 
-      <h2 style={{ margin: 0 }}>Profile</h2>
+      <h2 className="m-0">Profile</h2>
 
-      <span style={{ fontSize: "18px" }}>⚙️</span>
+      <span className="text-[18px]">⚙️</span>
     </div>
   )
 }

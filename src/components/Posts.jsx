@@ -3,49 +3,24 @@ import post2 from "../assets/post2.jpg"
 
 function Posts() {
   return (
-    <div style={{ marginTop: "30px", padding: "0 20px" }}>
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          overflowX: "auto"
-        }}
-      >
-        <div style={cardStyle}>
-          <img src={post1} style={imgStyle} />
+    <div className="mt-[30px] px-5">
+      <div className="flex gap-2.5 overflow-x-auto">
+        <div className="min-w-[120px]">
+          <img src={post1} alt="Post de futbol por la tarde" className="w-full rounded-[10px]" />
           <p>Fútbol de tarde...</p>
         </div>
 
-        <div style={cardStyle}>
-          <img src={post2} style={imgStyle} />
+        <div className="min-w-[120px]">
+          <img src={post2} alt="Post de partidito de futbol" className="w-full rounded-[10px]" />
           <p>Partidito hoy ⚽🔥</p>
         </div>
 
-        <div style={cardStyle}>
-          <div style={exploreStyle}>Explore</div>
+        <div className="min-w-[120px]">
+          <div className="flex h-[120px] w-[120px] items-center justify-center rounded-[10px] bg-gray-300">Explore</div>
         </div>
       </div>
     </div>
   )
-}
-
-const cardStyle = {
-  minWidth: "120px"
-}
-
-const imgStyle = {
-  width: "100%",
-  borderRadius: "10px"
-}
-
-const exploreStyle = {
-  width: "120px",
-  height: "120px",
-  backgroundColor: "#d1d5db",
-  borderRadius: "10px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center"
 }
 
 export default Posts

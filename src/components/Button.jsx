@@ -1,16 +1,8 @@
 function Button() {
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+    <div className="mt-5 flex justify-center">
       <button
-        style={{
-          backgroundColor: "#1e3a8a",
-          color: "white",
-          border: "none",
-          padding: "10px 30px",
-          borderRadius: "10px",
-          fontSize: "14px",
-          cursor: "pointer"
-        }}
+        className="cursor-pointer rounded-[10px] border-0 bg-blue-900 px-[30px] py-2.5 text-sm text-white"
       >
         Friends
       </button>

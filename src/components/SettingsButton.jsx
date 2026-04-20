@@ -1,16 +1,8 @@
 function SettingsButton() {
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+    <div className="mt-2.5 flex justify-center">
       <button
-        style={{
-          backgroundColor: "#6b7280",
-          color: "white",
-          border: "none",
-          padding: "8px 25px",
-          borderRadius: "10px",
-          fontSize: "13px",
-          cursor: "pointer"
-        }}
+        className="cursor-pointer rounded-[10px] border-0 bg-gray-500 px-[25px] py-2 text-[13px] text-white"
       >
         Settings
       </button>
