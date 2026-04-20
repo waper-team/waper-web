@@ -1,9 +1,10 @@
 import './App.css'
-import Prueba from './components/Prueba'
+import MeatballMenu from './components/MeatballMenu';
 
 function App() {
   return (
     <>
+      <MeatballMenu username='@duki_26' />
       <h1>Waper</h1>
       <p>Acá inicia la aplicación</p>
       <Prueba/>
