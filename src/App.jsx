@@ -13,7 +13,6 @@ function App() {
       </div>
       <h1>Waper</h1>
       <p>Acá inicia la aplicación</p>
-      <Prueba/>
     </>
   )
 }
