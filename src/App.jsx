@@ -7,6 +7,7 @@ function App() {
       <MeatballMenu username='@duki_26' />
       <h1>Waper</h1>
       <p>Acá inicia la aplicación</p>
+      <Prueba/>
     </>
   )
 }
