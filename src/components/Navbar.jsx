@@ -156,7 +156,7 @@ export default function Navbar({ activeTab = "profile", onTabChange, onAdd }) {
               width: 56,
               height: 44,
               borderRadius: 22,
-              background: "#111111",
+              background: "#0E2D5E",
               boxShadow: pressed === "add"
                 ? "0 2px 8px rgba(0,0,0,0.18)"
                 : "0 4px 16px rgba(0,0,0,0.22), 0 1px 4px rgba(0,0,0,0.12)",
