@@ -9,7 +9,7 @@ const MeatballMenu = ({ username = "@duki_26" }) => {
       {/* Botón hamburguesa */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer"
+        className="flex cursor-pointer flex-col gap-[5px] border-0 bg-transparent p-2"
       >
         <span className="block w-[22px] h-[2px] bg-black" />
         <span className="block w-[22px] h-[2px] bg-black" />
@@ -28,7 +28,7 @@ const MeatballMenu = ({ username = "@duki_26" }) => {
           {/* Settings */}
           <button
             onClick={() => setIsOpen(false)}
-            className="w-full px-4 py-3 text-left text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer bg-transparent"
+            className="w-full cursor-pointer border-0 border-b border-gray-100 bg-transparent px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-50"
           >
             ⚙️ Settings
           </button>
@@ -36,7 +36,7 @@ const MeatballMenu = ({ username = "@duki_26" }) => {
           {/* Notifications */}
           <button
             onClick={() => setIsOpen(false)}
-            className="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer bg-transparent"
+            className="w-full cursor-pointer border-0 bg-transparent px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-50"
           >
             🔔 Notifications
           </button>

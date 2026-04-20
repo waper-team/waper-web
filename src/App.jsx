@@ -1,4 +1,10 @@
 import './App.css'
+import ProfileImage from "./components/ProfileImage"
+import UserInfo from "./components/UserInfo"
+import Stats from "./components/Stats"
+import Button from "./components/Button"
+import Interests from "./components/Interests"
+import Posts from "./components/Posts"
 import MeatballMenu from './components/MeatballMenu';
 import EditButton from './components/EditButton';
 
@@ -11,10 +17,14 @@ function App() {
         <EditButton onPress={() => console.log('Editar Perfil')} />
         {/* TODO: Cambiar el username por el del usuario logueado */}
       </div>
-      <h1>Waper</h1>
-      <p>Acá inicia la aplicación</p>
+      <ProfileImage />
+      <UserInfo />
+      <Stats />
+      <Button />
+      <Interests />
+      <Posts />
     </>
-  )
+  );
 }
 
 export default App
