@@ -6,11 +6,11 @@ function UserInfo() {
       </p>
 
       <h2 className="my-[2px] font-semibold">
-        Juan
+        El Duko
       </h2>
 
       <p className="m-0 text-gray-500">
-        @juan_26
+        @duki_26
       </p>
     </div>
   )
