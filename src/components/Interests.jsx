@@ -1,4 +1,5 @@
 function Interests() {
+// Componente para mostrar los intereses y hobbies del usuario en su perfil.
   return (
     // Sección de intereses personales visibles en el perfil
     <div className="mt-[30px] text-center">
