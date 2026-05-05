@@ -1,15 +1,17 @@
+// Componente para mostrar los posts recientes del usuario en un carrusel horizontal.
 import post1 from "../assets/post1.jpg"
 import post2 from "../assets/post2.jpg"
 
 function Posts() {
   return (
+    // Contenedor principal de la sección de publicaciones
     <div className="mt-[30px] px-5 flex flex-col items-center w-full">
       
       {/* 1. justify-center: centra los items cuando caben en pantalla.
         2. w-full y max-w: evita que el carrusel se estire infinito en PC.
       */}
       <div className="flex w-full max-w-4xl gap-4 overflow-x-auto pb-4 justify-center">
-        
+        {/* Tarjeta de publicación: imagen destacada con descripción breve */}
         {/* imagen 1 */}
         <div className="flex-shrink-0 w-[140px] sm:w-[160px]">
           <div className="aspect-square w-full overflow-hidden rounded-[15px]">
@@ -22,7 +24,7 @@ function Posts() {
           <p className="mt-2 text-center text-xs font-medium text-gray-600">Fútbol de tarde...</p>
         </div>
 
-        {/* imagen 2 */}
+        {/* Tarjeta de publicación: segunda imagen del feed */}
         <div className="flex-shrink-0 w-[140px] sm:w-[160px]">
           <div className="aspect-square w-full overflow-hidden rounded-[15px]">
             <img 
