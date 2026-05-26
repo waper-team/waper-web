@@ -1,22 +1,108 @@
 function Interests() {
-// Componente para mostrar los intereses y hobbies del usuario en su perfil.
-  return (
-    // Sección de intereses personales visibles en el perfil
-    <div className="mt-[30px] text-center">
-      {/* Título de la categoría */}
-      <h3>Interests & Hobbies</h3>
 
-      {/* Listado de etiquetas: organiza hobbies en chips reutilizando con un estilo común */}
-      <div className="mt-2.5 flex flex-wrap justify-center gap-2.5">
-        <span className={chipClassName}>Nadar</span>
-        <span className={chipClassName}>Básket</span>
-        <span className={chipClassName}>Fútbol</span>
+  // Lista de intereses visibles en el perfil
+  const interests = [
+    {
+      name: "Nadar",
+      icon: "🏊"
+    },
+    {
+      name: "Básket",
+      icon: "🏀"
+    },
+    {
+      name: "Fútbol",
+      icon: "⚽"
+    }
+  ]
+
+  return (
+
+    // Sección de intereses y hobbies
+    <div
+      className="
+        mt-10
+        w-full
+        px-6
+      "
+    >
+
+      {/* Título */}
+      <div
+        className="
+          mb-4
+          flex
+          items-center
+          justify-between
+        "
+      >
+
+        <h3
+          className="
+            text-[20px]
+            font-bold
+            text-[#00135c]
+          "
+        >
+          Interests & Hobbies
+        </h3>
+
       </div>
+
+      {/* Contenedor de intereses */}
+      <div
+        className="
+          flex
+          flex-wrap
+          gap-3
+        "
+      >
+
+        {interests.map((interest, index) => (
+
+          <div
+            key={index}
+
+            className="
+              flex
+              items-center
+              gap-2
+              rounded-full
+              bg-white
+              px-5
+              py-3
+              shadow-md
+            "
+          >
+
+            {/* Ícono */}
+            <span
+              className="
+                text-[16px]
+              "
+            >
+              {interest.icon}
+            </span>
+
+            {/* Nombre */}
+            <span
+              className="
+                text-[14px]
+                font-semibold
+                text-[#00135c]
+              "
+            >
+              {interest.name}
+            </span>
+
+          </div>
+
+        ))}
+
+      </div>
+
     </div>
   )
 }
-
-// Estilo compartido para representar cada interés como una etiqueta visual
-const chipClassName = "rounded-[20px] bg-gray-200 px-[15px] py-2 text-xs"
 
 export default Interests
