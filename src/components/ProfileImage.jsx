@@ -2,17 +2,71 @@ import profilePic from "../assets/profile.jpg"
 
 function ProfileImage() {
   return (
-    // Se posiciona la imagen centrada y separada del header para darle protagonismo
-    // como elemento principal de identidad del usuario dentro del perfil
-    <div className="mt-[50px] flex justify-center">
-      <img
-        src={profilePic}
-        alt="profile"
-        // Se fija un tamaño uniforme para mantener consistencia entre usuarios
-        // y se usa rounded-full para reforzar el patrón visual típico de perfiles
-        // object-cover asegura que la imagen se adapte sin deformarse
-        className="h-[150px] w-[150px] rounded-full object-cover"
-      />
+
+    // Contenedor principal de la imagen de perfil
+    <div
+      className="
+        relative
+        mt-[40px]
+        flex
+        justify-center
+      "
+    >
+
+      {/* Imagen principal */}
+      <div
+        className="
+          relative
+          rounded-full
+          border-[8px]
+          border-white
+          shadow-xl
+        "
+      >
+
+        <img
+          src={profilePic}
+          alt="profile"
+
+          // Imagen principal del usuario
+          className="
+            h-[170px]
+            w-[170px]
+            rounded-full
+            object-cover
+          "
+        />
+
+        {/* Indicador online */}
+        <div
+          className="
+            absolute
+            bottom-2
+            right-2
+            flex
+            h-[28px]
+            w-[28px]
+            items-center
+            justify-center
+            rounded-full
+            bg-white
+            shadow-md
+          "
+        >
+
+          <div
+            className="
+              h-[16px]
+              w-[16px]
+              rounded-full
+              bg-green-500
+            "
+          />
+
+        </div>
+
+      </div>
+
     </div>
   )
 }

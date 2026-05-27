@@ -3,52 +3,148 @@ import { useState } from 'react'
 import './App.css'
 
 //2. Componentes de estructura
-import MeatballMenu from './components/MeatballMenu';
-import Navbar from './components/Navbar';
-import Button from "./components/Button"
-import EditButton from './components/EditButton';
+import MeatballMenu from './components/MeatballMenu'
+import Navbar from './components/Navbar'
+import EditButton from './components/EditButton'
 
 //3. Componentes de entidad Perfil
-import ProfileImage from "./components/ProfileImage"
-import UserInfo from "./components/UserInfo"
-import Stats from "./components/Stats"
-import Interests from "./components/Interests"
-import Posts from "./components/Posts"
+import ProfileImage from './components/ProfileImage'
+import UserInfo from './components/UserInfo'
+import Stats from './components/Stats'
+import Interests from './components/Interests'
+import Posts from './components/Posts'
 
 function App() {
-    // Estado local para mantener la pestaña activa (profile por defecto)
-    // TODO: Migrar a Context API o Redux para escalabilidad
-    const [activeTab, setActiveTab] = useState("profile");
+
+    // Estado local para mantener la pestaña activa
+    const [activeTab, setActiveTab] = useState('profile')
 
     return (
-        <>
-            {/* Encabezado: Controles de aplicación */}
-            <div className='flex justify-between items-center px-4 py-2'>
-                {/* Menú secundario para acciones rápidas */}
-                <MeatballMenu username='@duki_26' />
-                {/* Botón de edición de perfil */}
-                <EditButton onPress={() => console.log('Editar Perfil')} />
+
+        // Contenedor principal de la aplicación
+        <div
+            className="
+                relative
+                min-h-screen
+                overflow-hidden
+                bg-[#f5f7ff]
+                pb-28
+            "
+        >
+
+            {/* Decoraciones de fondo */}
+            <div
+                className="
+                    absolute
+                    left-[-120px]
+                    top-[-120px]
+                    h-[260px]
+                    w-[260px]
+                    rounded-full
+                    bg-[#0037ff]
+                "
+            />
+
+            <div
+                className="
+                    absolute
+                    right-[-100px]
+                    top-[320px]
+                    h-[220px]
+                    w-[220px]
+                    rounded-full
+                    border
+                    border-gray-200
+                    opacity-40
+                "
+            />
+
+            {/* Puntos decorativos */}
+            <div
+                className="
+                    absolute
+                    left-10
+                    top-52
+                    grid
+                    grid-cols-4
+                    gap-3
+                    opacity-60
+                "
+            >
+                {Array.from({ length: 16 }).map((_, index) => (
+                    <div
+                        key={index}
+                        className="
+                            h-2
+                            w-2
+                            rounded-full
+                            bg-blue-500
+                        "
+                    />
+                ))}
             </div>
 
-            {/* Sección principal: Datos del perfil */}
-            <ProfileImage />       {/* Image de perfil */}
-            <UserInfo />          {/* Nombre, bio */}
-            <Stats />             {/* Estadísticas de amigos y racha */}
-            <Button />            {/* Botón de acción principal (seguir, mensaje, etc.) */}
-            <Interests />         {/* Categorías de interés del usuario */}
+            {/* Header */}
+            <div
+                className="
+                    relative
+                    z-10
+                    flex
+                    items-center
+                    justify-between
+                    px-6
+                    pt-6
+                "
+            >
 
-            {/* Contenido dinámico: Feed según pestaña activa */}
-            <Posts />             {/* Galería/feed de publicaciones */}
+                {/* Menú hamburguesa */}
+                <MeatballMenu username='@duki_26' />
 
-            {/* Barra de navegación: Cambio entre vistas principales */}
+                {/* Botón editar perfil */}
+                <EditButton
+                    onPress={() => console.log('Editar Perfil')}
+                />
+
+            </div>
+
+            {/* Contenido principal */}
+            <div
+                className="
+                    relative
+                    z-10
+                    mt-6
+                    flex
+                    flex-col
+                    items-center
+                "
+            >
+
+                {/* Imagen de perfil */}
+                <ProfileImage />
+
+                {/* Información del usuario */}
+                <UserInfo />
+
+                {/* Estadísticas */}
+                <Stats />
+
+                {/* Intereses */}
+                <Interests />
+
+                {/* Publicaciones */}
+                <Posts />
+
+            </div>
+
+            {/* Barra de navegación inferior */}
             <Navbar
                 activeTab={activeTab}
                 onTabChange={(tab) => setActiveTab(tab)}
                 onAdd={() => console.log('Crear nuevo')}
             />
 
-        </>
-    );
+        </div>
+    )
 }
 
-export default App;
+export default App
