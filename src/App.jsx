@@ -8,6 +8,9 @@ import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
 import Profile from "./pages/Profile"
 
+//4. componentes del Login
+//5. Componentes del registre
+
 function App() {
 
   return (
