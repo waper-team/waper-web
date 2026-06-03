@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import '../App.css'
 
@@ -14,6 +15,7 @@ import {
 
 function Profile() {
     const [activeTab, setActiveTab] = useState('profile')
+    const navigate = useNavigate()
 
     return (
         <div
@@ -76,7 +78,7 @@ function Profile() {
             </div>
 
             <div className="relative z-10">
-                <Header />
+                <Header onEditProfile={() => navigate('/profile/edit')} />
             </div>
 
             <div

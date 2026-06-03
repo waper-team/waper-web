@@ -6,6 +6,7 @@ import {
 
 import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
+import EditProfile from "./pages/EditProfile"
 import Profile from "./pages/Profile"
 
 function App() {
@@ -32,6 +33,11 @@ function App() {
       <Route
         path="/profile"
         element={<Profile />}
+      />
+
+      <Route
+        path="/profile/edit"
+        element={<EditProfile />}
       />
 
     </Routes>

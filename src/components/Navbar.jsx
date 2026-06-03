@@ -98,10 +98,10 @@ const ProfileIcon = ({ active }) => (
 
 // Tabs
 const NAV_ITEMS = [
-  { id: "home", label: "Home", icon: HomeIcon },
-  { id: "search", label: "Search", icon: SearchIcon },
+  { id: "home", label: "Inicio", icon: HomeIcon },
+  { id: "search", label: "Buscar", icon: SearchIcon },
   { id: "inbox", label: "Inbox", icon: InboxIcon },
-  { id: "profile", label: "Profile", icon: ProfileIcon },
+  { id: "profile", label: "Perfil", icon: ProfileIcon },
 ];
 
 export default function Navbar({
@@ -158,7 +158,7 @@ export default function Navbar({
         {/* Lado izquierdo */}
         <div className="flex flex-1 justify-around">
 
-          {leftItems.map(({ id, label, icon: Icon }) => (
+          {leftItems.map(({ id, label, icon }) => (
 
             <button
               key={id}
@@ -190,7 +190,7 @@ export default function Navbar({
               }}
             >
 
-              <Icon active={activeTab === id} />
+              {icon({ active: activeTab === id })}
 
               <span
                 className="
@@ -287,7 +287,7 @@ export default function Navbar({
         {/* Lado derecho */}
         <div className="flex flex-1 justify-around">
 
-          {rightItems.map(({ id, label, icon: Icon }) => (
+          {rightItems.map(({ id, label, icon }) => (
 
             <button
               key={id}
@@ -319,7 +319,7 @@ export default function Navbar({
               }}
             >
 
-              <Icon active={activeTab === id} />
+              {icon({ active: activeTab === id })}
 
               <span
                 className="
