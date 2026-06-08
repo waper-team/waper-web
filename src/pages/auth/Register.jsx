@@ -15,10 +15,13 @@ import {
   AiOutlineEyeInvisible
 } from "react-icons/ai"
 
+import { createProfile } from "../../services/profileService"
+
 function Register() {
 
   const [showPassword, setShowPassword] = useState(false)
 
+  const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -46,19 +49,15 @@ function Register() {
 
     try {
 
-      console.log({
+      const profile = await createProfile({
+        fullName,
         username,
         email,
-        password
       })
 
-      setTimeout(() => {
+      navigate(`/profile/${profile.id}`)
 
-        setLoading(false)
-
-      }, 1500)
-
-    } catch (err) {
+    } catch {
 
       setError("Ocurrió un error")
       setLoading(false)
@@ -183,6 +182,66 @@ function Register() {
 
           )
         }
+
+        {/* Full name */}
+        <div className="mb-5">
+
+          <label
+            className="
+              mb-3
+              block
+              text-lg
+              font-bold
+              text-[#001e62]
+            "
+          >
+            Nombre completo
+          </label>
+
+          <div
+            className="
+              flex
+              items-center
+              rounded-2xl
+              border
+              border-gray-200
+              bg-white
+              px-5
+              py-5
+              transition-all
+              duration-300
+              focus-within:border-blue-500
+              focus-within:ring-2
+              focus-within:ring-blue-200
+            "
+          >
+
+            <FiUser
+              className="
+                mr-4
+                text-2xl
+                text-gray-400
+              "
+            />
+
+            <input
+              type="text"
+              placeholder="Ingresa tu nombre"
+              value={fullName}
+              onChange={(e) =>
+                setFullName(e.target.value)
+              }
+              className="
+                w-full
+                text-lg
+                outline-none
+              "
+              required
+            />
+
+          </div>
+
+        </div>
 
         {/* Username */}
         <div className="mb-5">
