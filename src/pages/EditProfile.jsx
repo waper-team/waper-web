@@ -1,14 +1,17 @@
-import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import profilePic from '../assets/profile.jpg'
 import { Navbar } from '../components'
+import { getProfile, updateProfile } from '../services/profileService'
 
 const initialProfile = {
   fullName: 'Juan Cruz',
   username: '@juan_26',
   email: 'juan.cruz@uap.edu.ar',
   bio: 'Apasionado por la tecnologia, el futbol y los desafios que generan impacto.',
+  profileImage: '',
+  interests: ['football', 'basket', 'swim'],
 }
 
 const initialInterests = [
@@ -17,13 +20,59 @@ const initialInterests = [
   { id: 'swim', label: 'Nadar', icon: SwimIcon },
 ]
 
+const interestConfig = {
+  basket: { label: 'Basket', icon: BasketIcon },
+  football: { label: 'Futbol', icon: FootballIcon },
+  futbol: { label: 'Futbol', icon: FootballIcon },
+  nadar: { label: 'Nadar', icon: SwimIcon },
+  swim: { label: 'Nadar', icon: SwimIcon },
+}
+
+function mapInterest(interest) {
+  const id = interest.toLowerCase()
+  const config = interestConfig[id]
+
+  return {
+    id,
+    label: config?.label || interest,
+    icon: config?.icon || PlusIcon,
+  }
+}
+
 function EditProfile() {
   const navigate = useNavigate()
+  const { profileId } = useParams()
   const [activeTab, setActiveTab] = useState('profile')
   const [profile, setProfile] = useState(initialProfile)
   const [interests, setInterests] = useState(initialInterests)
+  const [error, setError] = useState('')
+  const [isSaving, setIsSaving] = useState(false)
 
   const bioLength = useMemo(() => profile.bio.length, [profile.bio])
+
+  useEffect(() => {
+    if (!profileId) return
+
+    let isMounted = true
+
+    getProfile(profileId)
+      .then((loadedProfile) => {
+        if (!isMounted) return
+
+        setProfile(loadedProfile)
+        setInterests(loadedProfile.interests.map(mapInterest))
+        setError('')
+      })
+      .catch(() => {
+        if (!isMounted) return
+
+        setError('No se pudo cargar MongoDB. Se muestran datos temporales.')
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [profileId])
 
   const updateField = (field) => (event) => {
     setProfile((current) => ({
@@ -38,8 +87,20 @@ function EditProfile() {
     )
   }
 
-  const handleSave = () => {
-    navigate('/profile')
+  const handleSave = async () => {
+    setIsSaving(true)
+    setError('')
+
+    try {
+      await updateProfile(profileId, {
+        ...profile,
+        interests: interests.map((interest) => interest.id),
+      })
+      navigate(`/profile/${profileId}`)
+    } catch {
+      setError('No se pudo guardar el perfil.')
+      setIsSaving(false)
+    }
   }
 
   return (
@@ -69,17 +130,24 @@ function EditProfile() {
           <button
             type="button"
             onClick={handleSave}
+            disabled={isSaving}
             className="mt-1 shrink-0 rounded-[8px] bg-[#0037ff] px-5 py-3 text-[15px] font-bold text-white shadow-[0_10px_20px_rgba(0,55,255,0.25)] transition active:scale-95"
           >
-            Guardar
+            {isSaving ? 'Guardando' : 'Guardar'}
           </button>
         </header>
+
+        {error && (
+          <p className="mb-5 rounded-[8px] bg-red-50 px-4 py-3 text-[13px] font-semibold text-red-600">
+            {error}
+          </p>
+        )}
 
         <section className="mb-5 rounded-[8px] border border-[#edf1fb] bg-white p-5 shadow-[0_12px_30px_rgba(32,52,112,0.05)]">
           <div className="grid grid-cols-[132px_1fr] items-center gap-5 max-[390px]:grid-cols-1">
             <div className="relative mx-auto h-[132px] w-[132px]">
               <img
-                src={profilePic}
+                src={profile.profileImage || profilePic}
                 alt="Foto de perfil"
                 className="h-full w-full rounded-full object-cover"
               />

@@ -14,6 +14,8 @@ import {
   AiOutlineEyeInvisible
 } from "react-icons/ai"
 
+import { loginProfile } from "../../services/profileService"
+
 function Login() {
 
   const [showPassword, setShowPassword] = useState(false)
@@ -36,19 +38,12 @@ function Login() {
     try {
 
       // Simulación temporal
-      console.log({
-        email,
-        password
-      })
+      const profile = await loginProfile({ email })
 
       // Simula espera backend
-      setTimeout(() => {
+      navigate(`/profile/${profile.id}`)
 
-        setLoading(false)
-
-      }, 1500)
-
-    } catch (err) {
+    } catch {
 
       setError("Ocurrió un error")
       setLoading(false)

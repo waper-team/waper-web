@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import '../App.css'
+import { getProfile } from '../services/profileService'
 
 import {
     Header,
@@ -15,7 +16,31 @@ import {
 
 function Profile() {
     const [activeTab, setActiveTab] = useState('profile')
+    const [profile, setProfile] = useState(null)
+    const [error, setError] = useState('')
     const navigate = useNavigate()
+    const { profileId = '6a26cdc0e953d58f42ac971e' } = useParams()
+
+    useEffect(() => {
+        let isMounted = true
+
+        getProfile(profileId)
+            .then((loadedProfile) => {
+                if (!isMounted) return
+
+                setProfile(loadedProfile)
+                setError('')
+            })
+            .catch(() => {
+                if (!isMounted) return
+
+                setError('No se pudo cargar el perfil.')
+            })
+
+        return () => {
+            isMounted = false
+        }
+    }, [profileId])
 
     return (
         <div
@@ -78,7 +103,7 @@ function Profile() {
             </div>
 
             <div className="relative z-10">
-                <Header onEditProfile={() => navigate('/profile/edit')} />
+                <Header onEditProfile={() => navigate(`/profile/${profileId}/edit`)} />
             </div>
 
             <div
@@ -91,10 +116,18 @@ function Profile() {
                     items-center
                 "
             >
-                <ProfileImage />
-                <UserInfo />
-                <Stats />
-                <Interests />
+                {error && (
+                    <p className="mb-4 rounded-[8px] bg-red-50 px-4 py-3 text-[13px] font-semibold text-red-600">
+                        {error}
+                    </p>
+                )}
+                <ProfileImage src={profile?.profileImage} />
+                <UserInfo profile={profile} />
+                <Stats
+                    friendsCount={profile?.friendsCount}
+                    streakCount={profile?.streakCount}
+                />
+                <Interests interests={profile?.interests} />
                 <Posts />
             </div>
 
