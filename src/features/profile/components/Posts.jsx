@@ -1,6 +1,6 @@
 // Componente para mostrar publicaciones recientes del usuario
-import post1 from "../assets/post1.jpg"
-import post2 from "../assets/post2.jpg"
+import post1 from "../../../assets/images/post1.jpg"
+import post2 from "../../../assets/images/post2.jpg"
 
 function Posts() {
 
