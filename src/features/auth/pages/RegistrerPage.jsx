@@ -1,5 +1,5 @@
+import { useNavigate } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout.jsx";
-import RegisterRedirect from "../components/RegisterRedirect.jsx";
 import RegisterHeader from "../components/RegisterHeader.jsx";
 import RegisterButton from "../components/RegisterButton.jsx";
 import UsernameField from "../components/UsernameField.jsx";
@@ -10,10 +10,18 @@ import LoginError from "../components/LoginError.jsx";
 import LoginRedirect from "../components/LoginRedirect.jsx";
 
 function RegistrerPage(){
+    const navigate = useNavigate();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        navigate("/profile");
+    };
+
     return(
         <>
             <AuthLayout>
                 <form
+                    onSubmit={handleSubmit}
                     className="
                     relative
                     z-10
@@ -26,7 +34,7 @@ function RegistrerPage(){
                     <PasswordField/>
                     <ConfirmPasswordField/>
                     <RegisterButton/>
-                    <LoginRedirect/>
+                    <LoginRedirect navigate={navigate}/>
                 </form>
             </AuthLayout>
         </>

@@ -4,6 +4,7 @@ import AddInterestButton from "./AddInterestButton.jsx";
 function InterestsSection({
                               interests = [],
                               removeInterest = () => {},
+                              onChooseInterests,
                           }) {
     return (
         <section
@@ -31,16 +32,20 @@ function InterestsSection({
                 Contanos qué te gusta hacer y qué te interesa.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-3">
-                {interests.map((interest) => (
-                    <InterestChip
-                        key={interest.id}
-                        interest={interest}
-                        removeInterest={removeInterest}
-                    />
-                ))}
+            <div className="mt-5">
+                {interests.length > 0 && (
+                    <div className="mb-4 flex flex-wrap gap-3">
+                        {interests.map((interest) => (
+                            <InterestChip
+                                key={interest.id}
+                                interest={interest}
+                                removeInterest={removeInterest}
+                            />
+                        ))}
+                    </div>
+                )}
 
-                <AddInterestButton />
+                <AddInterestButton onClick={onChooseInterests} />
             </div>
         </section>
     );
