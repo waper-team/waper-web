@@ -1,3 +1,5 @@
+import { FiX } from "react-icons/fi";
+
 function InterestChip({
                           interest,
                           removeInterest,
@@ -23,7 +25,7 @@ function InterestChip({
         text-[#0037ff]
       "
         >
-      {icon()}
+      {icon?.()}
             {label}
 
             <button
@@ -38,7 +40,7 @@ function InterestChip({
           rounded-full
         "
             >
-        <CloseIcon />
+        <FiX />
       </button>
     </span>
     );

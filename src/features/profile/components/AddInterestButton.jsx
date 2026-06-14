@@ -1,7 +1,13 @@
-function AddInterestButton() {
+import { FiPlus } from "react-icons/fi";
+
+function AddInterestButton({
+    onClick,
+    label = "Elegir intereses",
+}) {
     return (
         <button
             type="button"
+            onClick={onClick}
             className="
         inline-flex
         min-h-12
@@ -20,8 +26,8 @@ function AddInterestButton() {
         active:scale-95
       "
         >
-            <PlusIcon />
-            Agregar interes
+            <FiPlus />
+            {label}
         </button>
     );
 }
