@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import InterestsLayout from "../components/InterestsLayout.jsx";
 import InterestHeader from "../components/InterestHeader.jsx";
@@ -34,8 +35,12 @@ import tecnologia from "../../../assets/interests/tecnologia.png";
 import videojuego from "../../../assets/interests/videojuego.png";
 
 function InterestedPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedInterests, setSelectedInterests] = useState([]);
+    const [selectedInterests, setSelectedInterests] = useState(
+        location.state?.interests?.map((interest) => interest.id) ?? []
+    );
 
     const categories = [
         {
@@ -274,14 +279,21 @@ function InterestedPage() {
         ],
     };
 
-    const interests = useMemo(() => {
-        if (!selectedCategory) return [];
-        return interestsByCategory[selectedCategory] ?? [];
-    }, [selectedCategory]);
+    const interests = selectedCategory
+        ? interestsByCategory[selectedCategory] ?? []
+        : [];
+
+    const selectedInterestValues = Object.values(interestsByCategory)
+        .flat()
+        .filter((interest) => selectedInterests.includes(interest.id))
+        .map((interest) => ({
+            id: interest.id,
+            label: interest.title,
+            name: interest.title,
+        }));
 
     const handleCategorySelect = (id) => {
         setSelectedCategory(id);
-        setSelectedInterests([]);
     };
 
     const handleInterestSelect = (id) => {
@@ -293,16 +305,47 @@ function InterestedPage() {
     };
 
     const handleSave = () => {
-        console.log({
-            category: selectedCategory,
-            interests: selectedInterests,
+        navigate(location.state?.returnTo ?? "/editProfile", {
+            state: {
+                userId: location.state?.userId,
+                profile: location.state?.profile,
+                interests: selectedInterestValues,
+            },
+        });
+    };
+
+    const handleBack = () => {
+        navigate(location.state?.returnTo ?? "/editProfile", {
+            state: {
+                userId: location.state?.userId,
+                profile: location.state?.profile,
+                interests: location.state?.interests ?? [],
+            },
         });
     };
 
     return (
         <InterestsLayout>
             <div className="flex min-h-screen flex-col pb-32">
-                <InterestHeader />
+                <InterestHeader
+                    action={
+                        <Button
+                            type="button"
+                            onClick={handleBack}
+                            className="
+                                h-9
+                                bg-white
+                                px-4
+                                text-xs
+                                text-[#1740FF]
+                                shadow-none
+                                hover:bg-[#eef3ff]
+                            "
+                        >
+                            Volver
+                        </Button>
+                    }
+                />
 
                 <div className="mt-6">
                     <SearchInput />
@@ -332,30 +375,10 @@ function InterestedPage() {
 
                 {selectedCategory && (
                     <section className="mt-10">
-                        <div
-                            className="
-                            flex
-                            items-center
-                            justify-between
-                            gap-4
-                        "
-                        >
+                        <div className="flex items-center justify-between gap-4">
                             <SelectionTitle>
                                 Intereses
                             </SelectionTitle>
-
-                            <Button
-                                onClick={handleSave}
-                                disabled={!selectedInterests.length}
-                                className="
-                                h-9
-                                px-4
-                                text-xs
-                                shrink-0
-                            "
-                            >
-                                Guardar
-                            </Button>
                         </div>
 
                         <div className="mt-5 flex flex-col gap-2">
@@ -363,6 +386,8 @@ function InterestedPage() {
                                 <InterestListItem
                                     key={interest.id}
                                     title={interest.title}
+                                    description={interest.description}
+                                    icon={interest.icon}
                                     checked={selectedInterests.includes(
                                         interest.id
                                     )}
@@ -376,6 +401,25 @@ function InterestedPage() {
                         </div>
                     </section>
                 )}
+
+                <div className="mt-8 flex items-center justify-between gap-4">
+                    <span className="text-sm font-medium text-gray-500">
+                        {selectedInterests.length} seleccionados
+                    </span>
+
+                    <Button
+                        onClick={handleSave}
+                        disabled={!selectedInterests.length}
+                        className="
+                            h-11
+                            px-6
+                            text-sm
+                            shrink-0
+                        "
+                    >
+                        Guardar
+                    </Button>
+                </div>
 
                 <div className="h-28 shrink-0" />
 

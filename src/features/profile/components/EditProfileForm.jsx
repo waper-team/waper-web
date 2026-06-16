@@ -8,6 +8,8 @@ function EditProfileForm({
     onBack,
     onSave,
     onChooseInterests,
+    initialProfile,
+    initialInterests = [],
 }) {
     const {
         profile,
@@ -15,10 +17,20 @@ function EditProfileForm({
         bioLength,
         removeInterest,
         updateField,
-    } = useEditProfileForm();
+    } = useEditProfileForm({
+        profile: initialProfile,
+        interests: initialInterests,
+    });
 
     const handleSave = () => {
         onSave?.({
+            profile,
+            interests,
+        });
+    };
+
+    const handleChooseInterests = () => {
+        onChooseInterests?.({
             profile,
             interests,
         });
@@ -42,7 +54,7 @@ function EditProfileForm({
             <InterestsSection
                 interests={interests}
                 removeInterest={removeInterest}
-                onChooseInterests={onChooseInterests}
+                onChooseInterests={handleChooseInterests}
             />
         </>
     );

@@ -1,6 +1,8 @@
+import { createElement } from "react";
+
 const InterestCategoryCard = ({
                                   title,
-                                  icon: Icon,
+                                  icon,
                                   selected,
                                   onClick,
                               }) => {
@@ -54,15 +56,13 @@ const InterestCategoryCard = ({
                 }
                 `}
             >
-                <Icon
-                    size={18}
-                    strokeWidth={2}
-                    className={
-                        selected
-                            ? "text-[#1740FF]"
-                            : "text-gray-600"
-                    }
-                />
+                {createElement(icon, {
+                    size: 18,
+                    strokeWidth: 2,
+                    className: selected
+                        ? "text-[#1740FF]"
+                        : "text-gray-600",
+                })}
             </div>
 
             <span
