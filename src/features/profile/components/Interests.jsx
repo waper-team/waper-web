@@ -1,24 +1,27 @@
-function Interests() {
-
-  // Lista de intereses visibles en el perfil
-  const interests = [
+function Interests({ interests: savedInterests } = {}) {
+  const defaultInterests = [
     {
       name: "Nadar",
-      icon: "🏊"
+      icon: "🏊",
     },
     {
       name: "Básket",
-      icon: "🏀"
+      icon: "🏀",
     },
     {
       name: "Fútbol",
-      icon: "⚽"
-    }
-  ]
+      icon: "⚽",
+    },
+  ];
+
+  const interests = savedInterests?.length
+    ? savedInterests.map((interest) => ({
+        name: interest.name ?? interest.label ?? interest.title,
+        icon: interest.icon ?? "•",
+      }))
+    : defaultInterests;
 
   return (
-
-    // Sección de intereses y hobbies
     <div
       className="
         mt-10
@@ -26,8 +29,6 @@ function Interests() {
         px-6
       "
     >
-
-      {/* Título */}
       <div
         className="
           mb-4
@@ -36,7 +37,6 @@ function Interests() {
           justify-between
         "
       >
-
         <h3
           className="
             text-[20px]
@@ -46,10 +46,8 @@ function Interests() {
         >
           Interests & Hobbies
         </h3>
-
       </div>
 
-      {/* Contenedor de intereses */}
       <div
         className="
           flex
@@ -57,12 +55,9 @@ function Interests() {
           gap-3
         "
       >
-
         {interests.map((interest, index) => (
-
           <div
-            key={index}
-
+            key={`${interest.name}-${index}`}
             className="
               flex
               items-center
@@ -74,8 +69,6 @@ function Interests() {
               shadow-md
             "
           >
-
-            {/* Ícono */}
             <span
               className="
                 text-[16px]
@@ -84,7 +77,6 @@ function Interests() {
               {interest.icon}
             </span>
 
-            {/* Nombre */}
             <span
               className="
                 text-[14px]
@@ -94,15 +86,11 @@ function Interests() {
             >
               {interest.name}
             </span>
-
           </div>
-
         ))}
-
       </div>
-
     </div>
-  )
+  );
 }
 
-export default Interests
+export default Interests;

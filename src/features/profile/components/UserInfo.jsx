@@ -1,7 +1,11 @@
-function UserInfo() {
-  return (
+function UserInfo({ profile } = {}) {
+  const displayName = profile?.name ?? profile?.fullName ?? "El Duko";
+  const username = profile?.username ?? "duki_26";
+  const bio =
+    profile?.bio ??
+    "Conectando personas a traves de intereses reales, musica y momentos compartidos.";
 
-    // Información principal del usuario
+  return (
     <div
       className="
         mt-5
@@ -11,8 +15,6 @@ function UserInfo() {
         text-center
       "
     >
-
-      {/* Carrera / categoría */}
       <p
         className="
           text-[14px]
@@ -21,10 +23,9 @@ function UserInfo() {
           text-[#5c6a9a]
         "
       >
-        Ingeniería en sistemas
+        Ingenieria en sistemas
       </p>
 
-      {/* Nombre principal */}
       <h2
         className="
           mt-1
@@ -34,10 +35,9 @@ function UserInfo() {
           text-[#00135c]
         "
       >
-        El Duko
+        {displayName}
       </h2>
 
-      {/* Username */}
       <p
         className="
           mt-2
@@ -46,10 +46,9 @@ function UserInfo() {
           text-gray-400
         "
       >
-        @duki_26
+        @{username}
       </p>
 
-      {/* Descripción */}
       <p
         className="
           mt-4
@@ -59,12 +58,10 @@ function UserInfo() {
           text-[#6b7280]
         "
       >
-        Conectando personas através de intereses reales,
-        música y momentos compartidos.
+        {bio}
       </p>
-
     </div>
-  )
+  );
 }
 
-export default UserInfo
+export default UserInfo;

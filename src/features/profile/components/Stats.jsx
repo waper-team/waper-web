@@ -1,4 +1,7 @@
-function Stats() {
+function Stats({ profile } = {}) {
+  const friendsCount = profile?.friendsCount ?? 650;
+  const streakCount = profile?.streakCount ?? 16;
+
   return (
 
     // Sección principal de estadísticas
@@ -60,7 +63,7 @@ function Stats() {
                 text-[#00135c]
               "
             >
-              650
+              {friendsCount}
             </h2>
 
             <p
@@ -119,7 +122,7 @@ function Stats() {
                 leading-none
               "
             >
-              16
+              {streakCount}
             </h2>
 
             <p

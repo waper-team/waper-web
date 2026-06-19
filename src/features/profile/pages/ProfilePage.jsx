@@ -1,6 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../../components/layout/Header.jsx";
 import Navbar from "../../../components/layout/Navbar.jsx";
+import ProfileService from "../../services/ProfileService.js";
 import {
     Interests,
     Posts,
@@ -15,9 +17,32 @@ import {
 
 function ProfilePage() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [profile, setProfile] = useState(location.state?.profile ?? null);
+    const [interests, setInterests] = useState(location.state?.interests);
+    const userId = location.state?.userId ?? localStorage.getItem("waperUserId");
+
+    useEffect(() => {
+        if (!userId) return;
+
+        ProfileService.getProfile(userId)
+            .then((profileData) => {
+                setProfile(profileData);
+                setInterests(profileData?.interests);
+            })
+            .catch(() => {
+                setProfile(location.state?.profile ?? null);
+            });
+    }, [location.state?.profile, userId]);
 
     const handleEditProfile = () => {
-        navigate("/editProfile");
+        navigate("/editProfile", {
+            state: {
+                userId,
+                profile,
+                interests,
+            },
+        });
     };
 
     return (
@@ -30,9 +55,9 @@ function ProfilePage() {
 
             <ProfileContent>
                 <ProfileImage />
-                <UserInfo />
-                <Stats />
-                <Interests />
+                <UserInfo profile={profile} />
+                <Stats profile={profile} />
+                <Interests interests={interests} />
                 <Posts />
             </ProfileContent>
             <Navbar/>

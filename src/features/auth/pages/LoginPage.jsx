@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout.jsx";
 import EmailField from "../components/EmailField.jsx";
@@ -7,12 +8,43 @@ import LoginError from "../components/LoginError.jsx";
 import LoginHeader from "../components/LoginHeader.jsx";
 import PasswordField from "../components/PasswordField.jsx";
 import RegisterRedirect from "../components/RegisterRedirect.jsx";
+import ProfileService from "../../services/ProfileService.js";
+
 function LoginPage() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        navigate("/profile");
+        setError("");
+        setLoading(true);
+
+        try {
+            const response = await ProfileService.login({
+                email,
+                password,
+            });
+            const userId = response?.user?._id ?? response?.user?.id;
+
+            if (userId) {
+                localStorage.setItem("waperUserId", userId);
+            }
+
+            navigate("/profile", {
+                state: {
+                    userId,
+                    profile: response?.user,
+                },
+            });
+        } catch (requestError) {
+            setError(requestError.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -27,10 +59,16 @@ function LoginPage() {
         "
             >
                 <LoginHeader />
-                <EmailField/>
-                <PasswordField/>
+                <LoginError error={error} />
+                <EmailField email={email} setEmail={setEmail} />
+                <PasswordField
+                    password={password}
+                    setPassword={setPassword}
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
+                />
                 <ForgotPasswordButton />
-                <LoginButton/>
+                <LoginButton loading={loading} />
                 <RegisterRedirect navigate={navigate}/>
             </form>
         </AuthLayout>
