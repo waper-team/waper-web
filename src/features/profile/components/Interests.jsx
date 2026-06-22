@@ -16,8 +16,11 @@ function Interests({ interests: savedInterests } = {}) {
 
   const interests = savedInterests?.length
     ? savedInterests.map((interest) => ({
-        name: interest.name ?? interest.label ?? interest.title,
-        icon: interest.icon ?? "•",
+        name:
+          typeof interest === "string"
+            ? interest
+            : interest.name ?? interest.label ?? interest.title,
+        icon: typeof interest === "string" ? "•" : interest.icon ?? "•",
       }))
     : defaultInterests;
 
