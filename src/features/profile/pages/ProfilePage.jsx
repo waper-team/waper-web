@@ -23,17 +23,24 @@ function ProfilePage() {
     const userId = location.state?.userId ?? localStorage.getItem("waperUserId");
 
     useEffect(() => {
-        if (!userId) return;
+        if (!userId) {
+            navigate("/login", { replace: true });
+            return;
+        }
 
         ProfileService.getProfile(userId)
             .then((profileData) => {
                 setProfile(profileData);
                 setInterests(profileData?.interests);
             })
-            .catch(() => {
+            .catch((requestError) => {
+                if (requestError.status === 401) {
+                    navigate("/login", { replace: true });
+                    return;
+                }
                 setProfile(location.state?.profile ?? null);
             });
-    }, [location.state?.profile, userId]);
+    }, [location.state?.profile, navigate, userId]);
 
     const handleEditProfile = () => {
         navigate("/editProfile", {
@@ -45,12 +52,30 @@ function ProfilePage() {
         });
     };
 
+    const handleLogout = async () => {
+        try {
+            await ProfileService.logout();
+        } finally {
+            localStorage.removeItem("waperUserId");
+            navigate("/login", { replace: true });
+        }
+    };
+
     return (
         <ProfileLayout>
             <ProfileBackground />
             <ProfileDecorationDots />
             <div className="relative z-10 pt-10">
                 <Header onEditProfile={handleEditProfile} />
+                <div className="flex justify-end px-4">
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#1740FF] shadow"
+                    >
+                        Cerrar sesión
+                    </button>
+                </div>
             </div>
 
             <ProfileContent>

@@ -39,7 +39,9 @@ function InterestedPage() {
     const location = useLocation();
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedInterests, setSelectedInterests] = useState(
-        location.state?.interests?.map((interest) => interest.id) ?? []
+        location.state?.interests?.map((interest) =>
+            typeof interest === "string" ? interest : interest.id
+        ) ?? []
     );
 
     const categories = [

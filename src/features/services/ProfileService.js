@@ -1,3 +1,5 @@
+import { normalizeInterests, serializeInterests } from "./interestMapper.js";
+
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000/api";
 
 class ProfileService {
@@ -13,11 +15,31 @@ class ProfileService {
 
         const data = await ProfileService.parseResponse(response);
 
-        if (!response.ok) {
-            throw new Error(data?.message ?? "Error al comunicarse con el servidor");
+        if (response.status === 401) {
+            localStorage.removeItem("waperUserId");
         }
 
-        return data;
+        if (!response.ok) {
+            const error = new Error(
+                data?.message ?? "Error al comunicarse con el servidor"
+            );
+            error.status = response.status;
+            throw error;
+        }
+
+        if (data?.user?.interests) {
+            return {
+                ...data,
+                user: {
+                    ...data.user,
+                    interests: normalizeInterests(data.user.interests),
+                },
+            };
+        }
+
+        return data?.interests
+            ? { ...data, interests: normalizeInterests(data.interests) }
+            : data;
     }
 
     static async parseResponse(response) {
@@ -44,6 +66,12 @@ class ProfileService {
         });
     }
 
+    static logout() {
+        return ProfileService.request("/auth/logout", {
+            method: "POST",
+        });
+    }
+
     static getProfile(userId) {
         return ProfileService.request(`/users/${userId}`);
     }
@@ -51,7 +79,10 @@ class ProfileService {
     static updateProfile(userId, profileData) {
         return ProfileService.request(`/users/${userId}`, {
             method: "PUT",
-            body: JSON.stringify(profileData),
+            body: JSON.stringify({
+                ...profileData,
+                interests: serializeInterests(profileData.interests),
+            }),
         });
     }
 
