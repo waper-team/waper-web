@@ -5,14 +5,15 @@ import {
 } from "react-icons/ai";
 
 function PasswordField({
-                           password,
-                           setPassword,
-                           showPassword,
-                           setShowPassword,
-                       }) {
+    password,
+    setPassword,
+    showPassword,
+    setShowPassword,
+}) {
     return (
         <div className="mb-3">
             <label
+                htmlFor="password"
                 className="
           mb-3
           block
@@ -50,6 +51,7 @@ function PasswordField({
                 />
 
                 <input
+                    id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Ingresa tu contraseña"
                     value={password}
@@ -66,6 +68,11 @@ function PasswordField({
 
                 <button
                     type="button"
+                    aria-label={
+                        showPassword
+                            ? "Ocultar contraseña"
+                            : "Mostrar contraseña"
+                    }
                     onClick={() =>
                         setShowPassword(!showPassword)
                     }
