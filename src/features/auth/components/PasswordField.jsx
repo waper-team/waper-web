@@ -56,6 +56,7 @@ function PasswordField({
                     onChange={(e) =>
                         setPassword(e.target.value)
                     }
+                    data-testid="register-password-input"
                     className="
             w-full
             text-lg
@@ -69,6 +70,7 @@ function PasswordField({
                     onClick={() =>
                         setShowPassword(!showPassword)
                     }
+                    data-testid="register-password-toggle"
                 >
                     {showPassword ? (
                         <AiOutlineEyeInvisible
