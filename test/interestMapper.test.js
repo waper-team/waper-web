@@ -1,26 +1,24 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import {
     normalizeInterests,
     serializeInterests,
 } from "../src/features/services/interestMapper.js";
 
 test("normalizes stored strings for the UI", () => {
-    assert.deepEqual(normalizeInterests(["Programación"]), [
+    expect(normalizeInterests(["Programaci\u00f3n"])).toEqual([
         {
-            id: "Programación",
-            name: "Programación",
-            label: "Programación",
+            id: "Programaci\u00f3n",
+            name: "Programaci\u00f3n",
+            label: "Programaci\u00f3n",
         },
     ]);
 });
 
 test("serializes UI objects for Spring and Mongo", () => {
-    assert.deepEqual(
+    expect(
         serializeInterests([
-            { id: 701, name: "Programación" },
+            { id: 701, name: "Programaci\u00f3n" },
             { id: 401, label: "Running" },
-        ]),
-        ["Programación", "Running"],
-    );
+        ])
+    ).toEqual(["Programaci\u00f3n", "Running"]);
 });

@@ -4,16 +4,17 @@ function EmailField({ email, setEmail }) {
     return (
         <div className="mb-7">
             <label
-                className="
-          mb-3
-          block
-          text-lg
-          font-bold
-          text-[#001e62]
-        "
-            >
-                Correo electrónico
-            </label>
+    htmlFor="email"
+    className="
+      mb-3
+      block
+      text-lg
+      font-bold
+      text-[#001e62]
+    "
+>
+    Correo electrónico
+</label>
 
             <div
                 className="
@@ -41,6 +42,7 @@ function EmailField({ email, setEmail }) {
                 />
 
                 <input
+                    id="email"
                     type="email"
                     placeholder="Ingresa tu correo"
                     value={email}
