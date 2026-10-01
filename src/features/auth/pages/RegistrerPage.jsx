@@ -53,13 +53,14 @@ function RegistrerPage(){
             <AuthLayout>
                 <form
                     onSubmit={handleSubmit}
+                    data-testid="register-form"
                     className="
                     relative
                     z-10
                     w-full
                     max-w-md">
                     <RegisterHeader/>
-                    <LoginError error={error}/>
+                    <LoginError error={error} data-testid="register-error-message"/>
                     <UsernameField
                         username={username}
                         setUsername={setUsername}

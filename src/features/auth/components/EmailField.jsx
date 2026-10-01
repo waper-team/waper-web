@@ -49,6 +49,7 @@ function EmailField({ email, setEmail }) {
                     onChange={(e) =>
                         setEmail(e.target.value)
                     }
+                    data-testid="register-email-input"
                     className="
             w-full
             text-lg

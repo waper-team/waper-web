@@ -3,6 +3,7 @@ function RegisterButton({ loading }) {
         <button
             type="submit"
             disabled={loading}
+            data-testid="register-submit-button"
             className="
         w-full
         rounded-2xl

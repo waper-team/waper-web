@@ -12,6 +12,7 @@ function LoginRedirect({ navigate }) {
 
             <button
                 type="button"
+                data-testid="login-redirect-button"
                 onClick={() =>
                     navigate("/login")
                 }

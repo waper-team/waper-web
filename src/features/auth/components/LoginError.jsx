@@ -1,8 +1,9 @@
-function LoginError({ error }) {
+function LoginError({ error, ...props }) {
     if (!error) return null;
 
     return (
         <div
+            {...props}
             className="
         mb-6
         rounded-2xl

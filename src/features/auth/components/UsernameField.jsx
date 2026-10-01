@@ -50,6 +50,7 @@ function UsernameField({
                     onChange={(e) =>
                         setUsername(e.target.value)
                     }
+                    data-testid="register-username-input"
                     className="
             w-full
             text-lg

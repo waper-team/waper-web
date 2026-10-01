@@ -56,6 +56,7 @@ function ConfirmPasswordField({
                     onChange={(e) =>
                         setConfirmPassword(e.target.value)
                     }
+                    data-testid="register-confirm-password-input"
                     className="
             w-full
             text-lg
@@ -69,6 +70,7 @@ function ConfirmPasswordField({
                     onClick={() =>
                         setShowPassword(!showPassword)
                     }
+                    data-testid="register-confirm-password-toggle"
                 >
                     {showPassword ? (
                         <AiOutlineEyeInvisible
