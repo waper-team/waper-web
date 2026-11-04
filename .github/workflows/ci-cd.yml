@@ -34,13 +34,17 @@ jobs:
   versioning:
     name: Bump Version
     needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-#    permissions: 
-#      contents: write
+    permissions:
+      contents: write
+
     outputs:
       new_tag: ${{ steps.tagger.outputs.new_tag }}
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -49,11 +53,18 @@ jobs:
         uses: anothrNick/github-tag-action@1.75.0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            default_Bump: patch
+            DEFAULT_BRANCH: main
+            RELEASE_BRANCH: main
+            TAG_PREFIX: v
 
+            DEFAULT_BUMP: none
             MAJOR_STRING_TOKEN: "feat!"
             MINOR_STRING_TOKEN: "feat"
             PATCH_STRING_TOKEN: "fix"
+
+      - name: Show generated tag
+        run: |
+          echo "New version: ${{ steps.tagger.outputs.new_tag}}"
 
   deploy:
     name: Deploy to Render
