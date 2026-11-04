@@ -56,6 +56,7 @@ jobs:
             DEFAULT_BRANCH: main
             RELEASE_BRANCHES: main
             TAG_PREFIX: v
+            DRY_RUN: false
 
             DEFAULT_BUMP: none
             MAJOR_STRING_TOKEN: "feat!"
