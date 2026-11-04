@@ -35,8 +35,25 @@ jobs:
     name: Bump Version
     needs: test
     runs-on: ubuntu-latest
+#    permissions: 
+#      contents: write
+    outputs:
+      new_tag: ${{ steps.tagger.outputs.new_tag }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Bump version and push tag
+        id: tagger
+        uses: anothrNick/github-tag-action@v1.75.0
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            default_Bump: patch
+
+            MAJOR_STRING_TOKEN: "feat!"
+            MINOR_STRING_TOKEN: "feat"
+            PATCH_STRING_TOKEN: "fix"
 
   deploy:
     name: Deploy to Render
