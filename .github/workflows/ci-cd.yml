@@ -2,7 +2,7 @@ name: Waper CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop, feature/ci-cd-pipeline ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
 
@@ -34,7 +34,7 @@ jobs:
   versioning:
     name: Bump Version
     needs: test
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature/ci-cd-pipeline')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
