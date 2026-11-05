@@ -63,10 +63,10 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             DEFAULT_BRANCH: main
-            RELEASE_BRANCHES: main,feature/ci-cd-pipeline
+            RELEASE_BRANCHES: main
             TAG_PREFIX: v
             DRY_RUN: false
-            DEFAULT_BUMP: patch
+            DEFAULT_BUMP: none
 
             MAJOR_STRING_TOKEN: "feat!"
             MINOR_STRING_TOKEN: "feat"
